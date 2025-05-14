@@ -70,7 +70,7 @@ Nodo* listaComprimida::comprimir(Nodo *inicio){
             if(atual->prox->info == atual->info && !a){
                 aux = atual->prox;
                 
-                while(aux==atual){
+                while(aux->info==atual->info){
                     quant->info++;
                     aux = aux->prox;
                     }
