@@ -51,29 +51,35 @@ Nodo* listaComprimida::intercalar(Nodo* x, Nodo* y) {
     return z;
 }
 Nodo* listaComprimida::comprimir(Nodo *inicio){
-    Nodo* novaLista, *atual, *aux;
-    bool a = false;
-    if(inicio==nullptr) return;
+    Nodo* novaLista, *atual, *aux, *ant;
+    bool a = true;
+    if(inicio==nullptr) return nullptr;
 
     atual = inicio;
     while(atual != nullptr){
-        Nodo* quant = new Nodo();
-        
-        quant->prox = atual->prox;
-        atual->prox = quant;
-        
-        if(atual->prox->info == atual->info && !a){
-            aux = atual->prox;
-            
-            while(aux==atual){
-                quant->info++;
-                aux = aux->prox;
-                }
-            }
-        else{
-            a = true;
-            quant->info++;
+        ant=inicio;
+        while(ant->prox!=atual && atual != inicio){
+            ant = ant->prox;
         }
-       atual = atual->prox;
+        if(ant!=atual || (ant==atual && ant == inicio)){
+            Nodo* quant = new Nodo();
+            
+            quant->prox = atual->prox;
+            atual->prox = quant;
+            
+            if(atual->prox->info == atual->info && !a){
+                aux = atual->prox;
+                
+                while(aux==atual){
+                    quant->info++;
+                    aux = aux->prox;
+                    }
+                }
+            else{
+                a = true;
+                quant->info++;
+            }
+        }
+    atual = atual->prox;
     }
 }
