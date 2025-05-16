@@ -8,11 +8,15 @@ struct Nodo {
 };
 
 class listaComprimida {
+Nodo* inicio;
 public:
-    listaComprimida() {}
+    listaComprimida() {
+        inicio=nullptr;
+    }
 
     Nodo* intercalar(Nodo* x, Nodo* y);
     Nodo* comprimir(Nodo *inicio);
+    Nodo* descomprimir(Nodo *inicio);
 };
 
 Nodo* listaComprimida::intercalar(Nodo* x, Nodo* y) {
@@ -50,6 +54,7 @@ Nodo* listaComprimida::intercalar(Nodo* x, Nodo* y) {
     }
     return z;
 }
+
 Nodo* listaComprimida::comprimir(Nodo *inicio){
     if (inicio == nullptr) return nullptr;
 
@@ -66,12 +71,11 @@ Nodo* listaComprimida::comprimir(Nodo *inicio){
             atual = atual->prox;
         }
 
-        // Criar nó do valor
+        
         Nodo* noValor = new Nodo{valor, nullptr};
-        // Criar nó da contagem
+        
         Nodo* noCont = new Nodo{cont, nullptr};
 
-        // Inserir na nova lista
         if (novaLista == nullptr) {
             novaLista = noValor;
             noValor->prox = noCont;
@@ -83,5 +87,17 @@ Nodo* listaComprimida::comprimir(Nodo *inicio){
         }
     }
 
+    return novaLista;
+}
+Nodo* listaComprimida::descomprimir(Nodo *inicio){
+    if(inicio==nullptr)return nullptr;
+
+    Nodo* novaLista = nullptr;
+    Nodo* atual = inicio;
+    Nodo* fim = nullptr;
+    
+    while(atual!=nullptr){
+        
+    }
     return novaLista;
 }
