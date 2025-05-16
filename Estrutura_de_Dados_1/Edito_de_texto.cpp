@@ -1,6 +1,6 @@
 #include <iostream>
 
-void limparTela(){ //função q achei na net pra limpar a tela, uma alternativa p n usar system
+void limparTela(){ 
     std::cout << "\033[2J\033[1;1H";
 }
 
