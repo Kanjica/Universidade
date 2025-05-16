@@ -17,7 +17,7 @@ public:
 
 Nodo* listaComprimida::intercalar(Nodo* x, Nodo* y) {
     Nodo* z = nullptr;
-    Nodo* fim = nullptr, 
+    Nodo* fim = nullptr;
     Nodo* ax,* ay;
 
     if (x == nullptr) {
@@ -51,35 +51,37 @@ Nodo* listaComprimida::intercalar(Nodo* x, Nodo* y) {
     return z;
 }
 Nodo* listaComprimida::comprimir(Nodo *inicio){
-    Nodo* novaLista, *atual, *aux, *ant;
-    bool a = true;
-    if(inicio==nullptr) return nullptr;
+    if (inicio == nullptr) return nullptr;
 
-    atual = inicio;
-    while(atual != nullptr){
-        ant=inicio;
-        while(ant->prox!=atual && atual != inicio){
-            ant = ant->prox;
+    Nodo* novaLista = nullptr;
+    Nodo* fim = nullptr;
+    Nodo* atual = inicio;
+
+    while (atual != nullptr) {
+        int valor = atual->info;
+        int cont = 0;
+
+        while (atual != nullptr && atual->info == valor) {
+            cont++;
+            atual = atual->prox;
         }
-        if(ant!=atual || (ant==atual && ant == inicio)){
-            Nodo* quant = new Nodo();
-            
-            quant->prox = atual->prox;
-            atual->prox = quant;
-            
-            if(atual->prox->info == atual->info && !a){
-                aux = atual->prox;
-                
-                while(aux->info==atual->info){
-                    quant->info++;
-                    aux = aux->prox;
-                    }
-                }
-            else{
-                a = true;
-                quant->info++;
-            }
+
+        // Criar nó do valor
+        Nodo* noValor = new Nodo{valor, nullptr};
+        // Criar nó da contagem
+        Nodo* noCont = new Nodo{cont, nullptr};
+
+        // Inserir na nova lista
+        if (novaLista == nullptr) {
+            novaLista = noValor;
+            noValor->prox = noCont;
+            fim = noCont;
+        } else {
+            fim->prox = noValor;
+            noValor->prox = noCont;
+            fim = noCont;
         }
-    atual = atual->prox;
     }
+
+    return novaLista;
 }
