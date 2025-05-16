@@ -89,15 +89,31 @@ Nodo* listaComprimida::comprimir(Nodo *inicio){
 
     return novaLista;
 }
-Nodo* listaComprimida::descomprimir(Nodo *inicio){
-    if(inicio==nullptr)return nullptr;
+Nodo* listaComprimida::descomprimir(Nodo* inicio){
+    if (inicio == nullptr) return nullptr;
 
-    Nodo* novaLista = nullptr;
     Nodo* atual = inicio;
+    Nodo* novaLista = nullptr;
     Nodo* fim = nullptr;
-    
-    while(atual!=nullptr){
-        
+
+    while (atual != nullptr && atual->prox != nullptr){
+        int valor = atual->info;
+        int quantidade = atual->prox->info;
+
+        for (int i=0; i < quantidade; i++){
+            Nodo* novo = new Nodo{valor, nullptr};
+            if (novaLista == nullptr){
+                novaLista = novo;
+                fim = novo;
+            }
+            else{
+                fim->prox = novo;
+                fim = novo;
+            }
+        }
+
+        atual = atual->prox->prox; 
     }
+
     return novaLista;
 }
