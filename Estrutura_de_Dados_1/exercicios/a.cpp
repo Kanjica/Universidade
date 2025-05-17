@@ -15,23 +15,27 @@ Nodo* inicio;
     inicio=nullptr;
   }  
 
-  void inserir(Nodo* inicio);
-}
+  void inserir(int nig);
+};
 
 void insercaoOrdenada::inserir(int nig){
   
-  Nodo *novo = new Nodo(), *ant;
+  Nodo *novo = new Nodo(), *ant = nullptr;
   Nodo *atual = inicio;
   
   novo->info = nig;
   novo->prox = nullptr;
-  
-  while(atual!=nullptr && (atual->info > nig)){
+
+	if(inicio == nullptr){
+		inicio = novo;
+		return;
+	}
+  while(atual!=nullptr && (atual->info < nig)){
     ant = atual;
 	  atual = atual->prox;
   }
   if(atual == nullptr){
-      atual->prox = novo;
+      ant->prox = novo;
   }
   else{
     if(atual == inicio){
