@@ -11,13 +11,13 @@ class Lista(){
   Lista(){
     inicio = nullptr;
   }
-  void antesN(int n);
-  void depoisN(int n);
+  void antesN(int n, int novoValor);
+  void depoisN(int n, int novoValor);
 }
 
-void Lista::antesN(int n){
+void Lista::antesN(int n, int novoValor){
   Nodo* novo = new Nodo();
-  novo->info = n;
+  novo->info = novoValor;
   novo->prox = nullptr;
   novo->ant = nullptr;
 
@@ -35,7 +35,6 @@ void Lista::antesN(int n){
   }
 
   if (atual == nullptr) {
-      // n n encontrado
       ante->prox = novo;
       novo->ant = ante;
   } else {
@@ -52,4 +51,23 @@ void Lista::antesN(int n){
   }
 }
 
-void Lista::depoisN(int n){}
+void Lista::depoisN(int n, int novoValor){
+    Nodo *atual = inicio;
+    
+    while (atual != nullptr && atual->info != n){
+        atual = atual->prox;
+    }
+
+    if (atual == nullptr){return;}
+
+    Nodo *novo = new Nodo();
+    novo->info = novoValor;
+
+    novo->prox = atual->prox;
+    novo->ant = atual;
+
+    if (atual->prox != nullptr){
+        atual->prox->ant = novo;
+    }
+    atual->prox = novo;
+}
