@@ -7,18 +7,18 @@ struct Nodo {
     Nodo* prox;
 };
 
-class insercaoOrdenada{
+class Lista{
 public:
 Nodo* inicio;
 
-  insercaoOrdenada(){
+  Lista(){
     inicio=nullptr;
   }  
 
   void inserir(int nig);
 };
 
-void insercaoOrdenada::inserir(int nig){
+void Lista::inserir(int nig){
   
   Nodo *novo = new Nodo(), *ant = nullptr;
   Nodo *atual = inicio;
