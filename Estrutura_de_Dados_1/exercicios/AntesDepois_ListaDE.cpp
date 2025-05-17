@@ -16,24 +16,40 @@ class Lista(){
 }
 
 void Lista::antesN(int n){
-  if(inicio==nullptr) return;
   Nodo* novo = new Nodo();
-  
   novo->info = n;
-  novo->prox == nullptr;
-  novo->ant == nullptr;
-  
-  Nodo* atual = inicio, *ante=nullptr;
-  atual->ant = ante;
-  ante->prox = atual;
-  
-  while(atual!=nullptr && atual->info !=n){
-    atual->ant = ante;
-    ante->prox = atual;
+  novo->prox = nullptr;
+  novo->ant = nullptr;
 
-    ante = ante->prox;
-    atual = atual->prox;
+  if (inicio == nullptr) {
+      inicio = novo;
+      return;
   }
-  
+
+  Nodo* atual = inicio;
+  Nodo* ante = nullptr;
+
+  while (atual != nullptr && atual->info != n) {
+      ante = atual;
+      atual = atual->prox;
+  }
+
+  if (atual == nullptr) {
+      // n n encontrado
+      ante->prox = novo;
+      novo->ant = ante;
+  } else {
+      if (atual == inicio) {
+          novo->prox = inicio;
+          inicio->ant = novo;
+          inicio = novo;
+      } else {
+          ante->prox = novo;
+          novo->ant = ante;
+          novo->prox = atual;
+          atual->ant = novo;
+      }
+  }
 }
+
 void Lista::depoisN(int n){}
