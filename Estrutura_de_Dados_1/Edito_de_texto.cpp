@@ -1,4 +1,4 @@
-#include <iostream>
+#include <iostream>//
 
 void limparTela(){ 
     std::cout << "\033[2J\033[1;1H";
