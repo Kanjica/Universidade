@@ -63,6 +63,7 @@ Nodo* Lista::fA(Nodo*inicio){
     atual = atual->prox;
   }
 
+  //ordenanado 
   auxNovaLista = novaLista;
   while(auxNovaLista->prox!=nullptr){
     if(auxNovaLista->info > auxNovaLista->prox->info){
@@ -77,5 +78,13 @@ Nodo* Lista::fA(Nodo*inicio){
 Nodo* Lista::fB(Nodo*inicio){
   if(inicio == nullptr)return nullptr;
   
-  
+  Nodo* atual = inicio *ant = nullptr;
+  while(atual != nullptr){
+    if(atual->info%2 == 0){
+      if(ant!=nullptr){ant->prox = atual->prox;}
+      else{inicio = atual ->prox;}
+    }
+    ant = atual;
+    atual = atual->prox;
+  }
 }
