@@ -9,15 +9,15 @@
 
 #include <iostream>
 
-struct Nodo {
+struct Nodo{
     int info;
     Nodo *prox;
 };
 
-class Lista {
+class Lista{
     Nodo* inicio;
 public:
-    Lista() {
+    Lista(){
         inicio = nullptr;
     }
 
@@ -47,7 +47,6 @@ Nodo* Lista::fA(Nodo *inicio){
         bool ehPrimoImpar = (atual->info % 2 != 0) && ehPrimo(atual->info);
 
         if (ehPrimoImpar){
-
             Nodo *novoNo = new Nodo;
             novoNo->info = atual->info;
             novoNo->prox = novaLista;
