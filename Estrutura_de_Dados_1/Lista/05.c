@@ -9,37 +9,54 @@ nó antecessor e o sucessor a um determinado nó contendo um elemento X
 #include <stdlib.h>
 
 typedef struct Nodo{
-  int data;
-  struct Nodo *next;
+    int data;
+    struct Nodo *next;
 }Nodo;
 
 void beforeAndAfter(Nodo *head, int x){
-  if(head == NULL) return;
-  
-  Nodo *current = head;
-  Nodo *previus, *previusToPrevius;
-  
-  while(current != NULL && current->data != x){
-    previusToPrevius = previus;
-    previus = current;
-    current = current->next;
-  }
-  if(current==NULL){std::cout << "Tem esse número não." std::endl; return;}
-  
-  if(current == head){
-    current->next = current->next->next;
-  }
-  else if(current == head->next){
-    head = head->next;
-    if(current->next != NULL){
-      current->next = current->next->next;
+    if(head == NULL) return;
+
+    Nodo *current = head;
+    Nodo *previous = NULL;
+    Nodo *previousToPrevious = NULL;
+
+    while(current != NULL && current->data != x){
+        previousToPrevious = previous;
+        previous = current;
+        current = current->next;
     }
-  }
-  else if(current->next == NULL){
-    previus->next = current->next;
-  }
-  else{
-    previusToPrevius->next = current;
-    current->next = current->next->next;
-  }
+
+    if(current == NULL){printf("Tem esse número não.\n");return;}
+
+    if(previous == NULL){
+        if(current->next != NULL){
+            Nodo *temp = current->next;
+            current->next = temp->next;
+            free(temp);
+        }
+        return;
+    }
+
+    if(current->next == NULL){
+        if (previousToPrevious != NULL){
+            previousToPrevious->next = current;
+            free(previous);
+        } 
+        else{
+            head->next = current;
+            free(previous);
+        }
+        return;
+    }
+
+    if(previousToPrevious != NULL){
+        previousToPrevious->next = current;  
+    } 
+    else{
+        head = current;  
+    }
+
+    Nodo *temp = current->next;
+    current->next = temp->next;
+    free(temp);
 }
