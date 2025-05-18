@@ -12,72 +12,57 @@ typedef struct Nodo {
     struct Nodo *next;
 } Nodo;
 
-Nodo* madness(Nodo *head){
-  if(head==NULL)return NULL;
-  
-  Nodo *current = head;
-  Nodo *evenList, *oddList, *runnerEven, *runnerOdd;
-  evenList = oddList = runnerEven = runnerOdd = NULL;
-  
-  while(current!=NULL){
-    if(current->data%2==0){
-      if(evenList == NULL){ 
-        evenList = current; 
-        runnerEven = evenList;
-      }
-      else{   
-        runnerEven = evenList;
-        Nodo *previusRuEven = NULL;
-        while(runnerEven != NULL && current->data < runnerEven->data){
-          previusRuEven = runnerEven;
-          runnerEven = runnerEven->prox;
+Nodo* madness(Nodo *head) {
+    if (head == NULL) return NULL;
+
+    Nodo *evenList = NULL;  // Lista de pares (ordem decrescente)
+    Nodo *oddList = NULL;   // Lista de ímpares (ordem crescente)
+    Nodo *current = head;
+
+    while (current != NULL) {
+        Nodo *next = current->next;  // Salva o próximo antes de mexer
+
+        if (current->data % 2 == 0) {  // PARES (ordem decrescente)
+            if (evenList == NULL || current->data >= evenList->data) {
+                // Insere no início (para ordem decrescente)
+                current->next = evenList;
+                evenList = current;
+            } else {
+                // Procura a posição correta
+                Nodo *temp = evenList;
+                while (temp->next != NULL && current->data < temp->next->data) {
+                    temp = temp->next;
+                }
+                current->next = temp->next;
+                temp->next = current;
+            }
+        } else {  // ÍMPARES (ordem crescente)
+            if (oddList == NULL || current->data <= oddList->data) {
+                // Insere no início (para ordem crescente)
+                current->next = oddList;
+                oddList = current;
+            } else {
+                // Procura a posição correta
+                Nodo *temp = oddList;
+                while (temp->next != NULL && current->data > temp->next->data) {
+                    temp = temp->next;
+                }
+                current->next = temp->next;
+                temp->next = current;
+            }
         }
-        if(runnerEven == NULL){
-          previusRuEven->prox = current;
-          //runnerEven->prox = NULL;
-        } 
-        else if(runnerEven == evenList){
-          runnerEven->next = evenList;
-          evenList = runnerEven;
-        }
-        else{
-          Nodo* temp = runnerEven;
-          runnerEven = current;
-          previusRuEven->next = runnerEven;
-          runnerEven->next = temp;
-        }
-      }
+        current = next;  // Avança para o próximo nó
     }
-    else{
-      if(oddList == NULL){ 
-        oddList = current; 
-        runnerOdd = oddList;
-      }
-      else{
-        runnerOdd = oddList;
-        Nodo *previusRuOdd = NULL;
-        while(runnerOdd != NULL && current->data > runnerOdd->data){
-          runnerOdd = runnerOdd->prox;
-        }
-        if(runnerOdd == NULL){
-          previusRuOdd->prox = current;
-          //runnerOdd->prox = NULL
-        } 
-        else if(runnerOdd == oddList){
-          runnerOdd->next = oddList;
-          oddList = runnerOdd;
-        }
-        else{
-          Nodo* temp = runnerOdd;
-          runnerOdd = current;
-          previusRuOdd->next = runnerOdd;
-          runnerOdd->next = temp;
-        }
-      }
+
+    // Liga a lista de pares com a de ímpares
+    if (evenList == NULL) return oddList;  // Só ímpares
+    if (oddList == NULL) return evenList;  // Só pares
+
+    Nodo *lastEven = evenList;
+    while (lastEven->next != NULL) {
+        lastEven = lastEven->next;
     }
-    current=current->next;
-  }
-  runnerEven->next = oddList;
-  Nodo *madnessList = evenList;
-  return madnessList;
+    lastEven->next = oddList;  // Conecta as listas
+
+    return evenList;
 }
