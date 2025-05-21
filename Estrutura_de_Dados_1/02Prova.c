@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <unistd.h>
 using namespace std;
 
 void limparTela(){ 
@@ -148,7 +148,7 @@ int main(){
 				cout << "Erro" << endl;
 			break;
 		}
-		limparTela();
+		 cout << endl;
 	}
     return 0;
 }
