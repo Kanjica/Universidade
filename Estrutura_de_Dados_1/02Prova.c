@@ -6,10 +6,10 @@ void limparTela(){
     cout << "\033[2J\033[1;1H";
 }
 
-struct Nodo{
+typedef struct Nodo{
     int info; 
     Nodo *prox, *ant;
-};
+}Nodo;
 
 class Lista{
 public:
@@ -45,7 +45,25 @@ void Lista::add(int n){
 
 void Lista::remover(int n){
     if(inicio == nullptr) return;
-    
+
+	Nodo* atual = inicio;
+
+	while(atual!=nullptr){
+		if(atual->info == n ){
+			Nodo* aux = atual;
+			if(atual->ant!=nullptr){
+				atual->ant->prox = atual->prox;
+			}
+			if(atual->ant == nullptr){
+				inicio = atual;
+			}
+			if(atual->prox!=nullptr){
+				atual = atual->prox;
+			}
+			delete aux;
+		}
+		atual = atual->prox;
+	}
     
 }
 void Lista::printarElementos(){
@@ -90,8 +108,47 @@ void Lista::removerAntesDepois(int n){
 }
 
 int main(){
-    Lista lista = new Lista();
+    Lista lista = Lista();
+	int n = 0;
+	
+    while(1){
+		cout << "1- Adicionar\n2-Remover\n3-Remover Antecessores e Sucessores\n4-Printar Elementos"<<endl;
+		int escolhaInicial = 0;
+		cin >> escolhaInicial;
 
+		switch(escolhaInicial){
+			case 1:
+				cout << "Digite o número: ";
+				cin >> n;
+				lista.add(n);
+			break;
 
+			case 2:
+				cout << "Digite o número: ";
+				cin >> n;
+				lista.remover(n);
+			break;
+			
+			case 3:
+				cout << "Digite o número: ";
+				cin >> n;
+				lista.removerAntesDepois(n);
+			break;
+			
+			case 4:
+				lista.printarElementos();
+			break;
+
+			case 5:
+				cout << "Exit.";
+				exit(0);
+			break;
+
+			default:
+				cout << "Erro" << endl;
+			break;
+		}
+		limparTela();
+	}
     return 0;
 }
