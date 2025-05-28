@@ -61,4 +61,11 @@ void insertIterative(Nodo* root, int n){
   if(n>parent->value) parent->right = current;
   else parent->left = current;
   }
+
+  void in_order(Nodo* root){
+    if(root==nullptr) return;
+    in_order(root->left);
+    std::cout << root->value;
+    in_order(root->right);
+  }
 }
