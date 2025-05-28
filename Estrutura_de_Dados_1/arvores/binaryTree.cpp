@@ -34,22 +34,31 @@ BinaryTree::BinaryTree(){
 
 void insertIterative(Nodo* root, int n){
   Nodo* current, *parent;
-    if(root==nullptr){
-      root = new Node();
+  if(root==nullptr){
+    root = new Node();
     if(root == nullptr) exit(1);
-
+  
     root->info = n;
     root->left = nullptr;
     root->right = nullptr;
     return;
-    }
-    current = root;
-    while(atual!=nullptr){
-      parent = current;
-      if(n>current->value) current = current->right;
-      else 
-        if(n < current->value) current = current->left;
-        else std::cout << "Repeated.";
-    }
+  }
+  current = root;
+  while(current!=nullptr){
+    parent = current;
+    if(n>current->value) current = current->right;
+    else 
+      if(n < current->value) current = current->left;
+      else std::cout << "Repeated.";
+  }
+  current = new Node();
+  if(!current) exit(1);
+
+  current->value = n;
+  current->left = nullptr;
+  current->right = nullptr;
+
+  if(n>parent->value) parent->right = current;
+  else parent->left = current;
   }
 }
