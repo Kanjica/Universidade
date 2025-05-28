@@ -1,5 +1,5 @@
 typedef struct Node{
-  int data;
+  int value;
   struct Node *left, *right;
 }Node;
 
@@ -13,6 +13,7 @@ class BinaryTree{
 
 BinaryTree::BinaryTree(){
   root = nullptr;
+  
   Node* insert(Node* root, int n){
     if(root == nullptr){
       root = new Node();
@@ -24,10 +25,31 @@ BinaryTree::BinaryTree(){
 
       return root;
     }
-    if(n>root->data) root->right = insert(root->right, n);
+    if(n>root->value) root->right = insert(root->right, n);
     else
-      if(n<root->data) root->left = insert(root->left, n);
-      else std::cout << "Repeated." << std::endl;
+      if(n<root->value) root->left = insert(root->left, n);
+      else std::cout << "Repeated.";
       return root;
+  }
+
+void insertIterative(Nodo* root, int n){
+  Nodo* current, *parent;
+    if(root==nullptr){
+      root = new Node();
+    if(root == nullptr) exit(1);
+
+    root->info = n;
+    root->left = nullptr;
+    root->right = nullptr;
+    return;
+    }
+    current = root;
+    while(atual!=nullptr){
+      parent = current;
+      if(n>current->value) current = current->right;
+      else 
+        if(n < current->value) current = current->left;
+        else std::cout << "Repeated.";
+    }
   }
 }
