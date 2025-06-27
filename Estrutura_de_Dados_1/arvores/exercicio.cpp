@@ -1,5 +1,7 @@
 #include <iostream>
 
+using namespace std;
+
 struct Node {
     int data;
     Node* left;
@@ -20,6 +22,24 @@ public:
     void setRaiz(Node* no) {
         raiz = no;
     }
+
+    Node* inserir(Node* raiz, int valor) {
+    if(!raiz){
+        return new Node(valor);
+    }
+
+    if(valor < raiz->data){
+        raiz->left = inserir(raiz->left, valor); 
+    } 
+    else if(valor > raiz->data){
+        raiz->right = inserir(raiz->right, valor); 
+    }
+    else{
+        cout << "Valor duplicado ignorado: " << valor << endl;
+    }
+    return raiz; 
+}
+
 };
 
 int main() {
