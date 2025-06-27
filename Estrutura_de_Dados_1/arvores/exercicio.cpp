@@ -46,7 +46,9 @@ int main() {
     Arvore arv;
     Node* novoNo = new Node(10);
     arv.setRaiz(novoNo);
-
-    std::cout << "Raiz: " << arv.raiz->data << std::endl;
+    
+    arv.inserir(arv.raiz, 5);
+    
+    cout << "Raiz: " << arv.raiz->data << endl;
     return 0;
 }
